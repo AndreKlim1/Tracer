@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using System.Xml;
 using Tracer.Entities;
 
 namespace Tracer.Tracer
@@ -15,6 +18,16 @@ namespace Tracer.Tracer
         private MethodNode _prevMethod;
         private int _currentMethodDepth;
         private static ConcurrentDictionary<int, TraceResultStruct> _tracersDict;
+
+        public Tracer(int threadID)
+        {
+            _traceResultStruct.Id = threadID;
+            _traceResultStruct.Methods = new List<MethodNode>();
+            if (_tracersDict == null)
+            {
+                _tracersDict = new ConcurrentDictionary<int, TraceResultStruct>();
+            }
+        }
 
         public TraceResultStruct GetTraceResult()
         {
@@ -32,6 +45,8 @@ namespace Tracer.Tracer
                 _traceResultStruct.Time += method.GetMethodStruct.Time;
             }
         }
+
+
 
         public void StartTrace()
         {
@@ -65,14 +80,57 @@ namespace Tracer.Tracer
 
         }
 
-        public Tracer(int threadID)
+        public void ConsoleResult(string resJSON, string resXML)
         {
-            _traceResultStruct.Id = threadID;
-            _traceResultStruct.Methods = new List<MethodNode>();
-            if (_tracersDict == null)
+            Console.WriteLine(resJSON);
+            Console.WriteLine(resXML);
+        }
+
+        public void FileOutputResult(string filePath1, string filePath2, string resJSON, string resXML)
+        {
+            File.WriteAllText(filePath1, resJSON);
+            File.WriteAllText(filePath2, resXML);
+        }
+
+        private string GetJSON(TraceResultStruct result)
+        {
+            return JsonConvert.SerializeObject(result, Newtonsoft.Json.Formatting.Indented); ;
+        }
+
+        private string GetXML(TraceResultStruct result)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(TraceResultStruct));
+
+            var settings = new XmlWriterSettings()
             {
-                _tracersDict = new ConcurrentDictionary<int, TraceResultStruct>();
+                Indent = true,
+                IndentChars = "\t"
+            };
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                using (var writer = XmlWriter.Create(textWriter, settings))
+                {
+                    var namespaces = new XmlSerializerNamespaces();
+                    namespaces.Add(string.Empty, string.Empty); 
+
+                    xmlSerializer.Serialize(writer, result, namespaces);
+                }
+                return textWriter.ToString();
             }
+        }
+
+        public void GetMultiThreadResult(string filePath1, string filePath2)
+        {
+            string json = string.Empty;
+            string xml = string.Empty;
+            foreach (var thread in _tracersDict)
+            {
+                json += GetJSON(thread.Value);
+                xml += GetXML(thread.Value);
+            }
+            ConsoleResult(json, xml);
+            FileOutputResult(filePath1, filePath2, json, xml);
         }
     }
 }
