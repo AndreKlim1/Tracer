@@ -50,7 +50,27 @@ namespace Tracer.Tracer
 
         public void StartTrace()
         {
-            throw new NotImplementedException();
+            _prevMethod = _method;
+            _method = new MethodNode();
+            _method.parentMethod = _prevMethod;
+
+            int prevMethodDepth = _prevMethod?.GetMethodStruct.MethodDepth ?? -1;
+            _currentMethodDepth = _method.GetMethodStruct.MethodDepth;
+
+            switch (prevMethodDepth)
+            {
+                case var depth when depth == -1:
+                    _traceResultStruct.Methods.Add(_method);
+                    break;
+                case var depth when depth == (_currentMethodDepth - 1):
+                    _prevMethod.GetMethodStruct.internalMethodStructs.Add(_method);
+                    break;
+                default:
+                    _traceResultStruct.Methods.Add(_method);
+                    break;
+            }
+
+            _method.StartStopwatch();
         }
 
         public void StopTrace()
