@@ -35,7 +35,7 @@ namespace Tracer.Tracer
             for (int i = skipFrames; i < stackFrames.Length; i++)
             {
                 MethodBase method = stackFrames[i].GetMethod();
-                if (method.DeclaringType != typeof(Tracer))
+                if (method.DeclaringType != typeof(TracerClass))
                 {
                     return (method.Name, method.DeclaringType.Name);
                 }

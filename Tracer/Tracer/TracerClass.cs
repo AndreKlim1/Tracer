@@ -11,7 +11,7 @@ using Tracer.Entities;
 
 namespace Tracer.Tracer
 {
-    public class Tracer : ITracer
+    public class TracerClass : ITracer
     {
         private TraceResultStruct _traceResultStruct;
         private MethodNode _method;
@@ -19,7 +19,7 @@ namespace Tracer.Tracer
         private int _currentMethodDepth;
         private static ConcurrentDictionary<int, TraceResultStruct> _tracersDict;
 
-        public Tracer(int threadID)
+        public TracerClass(int threadID)
         {
             _traceResultStruct.Id = threadID;
             _traceResultStruct.Methods = new List<MethodNode>();
