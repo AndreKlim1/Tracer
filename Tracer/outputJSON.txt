@@ -1,18 +1,18 @@
 {
   "Id": 1,
-  "Time": 265.6153,
+  "Time": 265.4033,
   "Methods": [
     {
       "method properties": {
         "Name": "MyMethod",
         "ClassName": "Foo",
-        "Time": 265.6153,
+        "Time": 265.4033,
         "methods": [
           {
             "method properties": {
               "Name": "InnerMethod",
               "ClassName": "Bar",
-              "Time": 111.0193,
+              "Time": 109.5163,
               "methods": []
             }
           }
@@ -21,20 +21,20 @@
     }
   ]
 }{
-  "Id": 7,
-  "Time": 576.6777999999999,
+  "Id": 12,
+  "Time": 578.4364,
   "Methods": [
     {
       "method properties": {
         "Name": "MyMethod",
         "ClassName": "Foo",
-        "Time": 265.6374,
+        "Time": 265.4454,
         "methods": [
           {
             "method properties": {
               "Name": "InnerMethod",
               "ClassName": "Bar",
-              "Time": 111.0137,
+              "Time": 109.5102,
               "methods": []
             }
           }
@@ -45,13 +45,13 @@
       "method properties": {
         "Name": "MySecondMethod",
         "ClassName": "Foo",
-        "Time": 311.0404,
+        "Time": 312.991,
         "methods": [
           {
             "method properties": {
               "Name": "InnerMethod",
               "ClassName": "Bar",
-              "Time": 109.3116,
+              "Time": 112.0543,
               "methods": []
             }
           }
@@ -60,20 +60,20 @@
     }
   ]
 }{
-  "Id": 8,
-  "Time": 373.6975,
+  "Id": 13,
+  "Time": 372.424,
   "Methods": [
     {
       "method properties": {
         "Name": "MyMethod",
         "ClassName": "Foo",
-        "Time": 265.6207,
+        "Time": 265.4509,
         "methods": [
           {
             "method properties": {
               "Name": "InnerMethod",
               "ClassName": "Bar",
-              "Time": 111.0241,
+              "Time": 109.5139,
               "methods": []
             }
           }
@@ -84,7 +84,7 @@
       "method properties": {
         "Name": "InnerMethod",
         "ClassName": "Bar",
-        "Time": 108.0768,
+        "Time": 106.9731,
         "methods": []
       }
     }

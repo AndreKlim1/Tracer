@@ -7,7 +7,7 @@ using Tracer.Entities;
 
 namespace Tracer.Tracer
 {
-    internal interface ITracer
+    public interface ITracer
     {
 
         void StartTrace();
